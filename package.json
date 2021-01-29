@@ -1,0 +1,24 @@
+{
+  "name": "cawer-api",
+  "version": "1.0.0",
+  "description": "backend for a social media",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node ./src/index.js"
+  },
+  "author": "Maickel Siqueira",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jest": "^26.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.11.14",
+    "node-fetch": "^2.6.1"
+  }
+}
