@@ -69,4 +69,16 @@ router.post("/update-user", authMiddleware, function (req, res) {
   })();
 });
 
+router.delete("/delete-user", authMiddleware, function (req, res) {
+  const id = req.user.id;
+  (async () => {
+    try {
+      await UserService.delete(id);
+      res.status(204).send({message: 'User deleted'});
+    } catch (error) {
+      res.status(error.statusCode).send(error);
+    }
+  })();
+});
+
 module.exports = router;

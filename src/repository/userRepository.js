@@ -51,6 +51,14 @@ class UserRepository {
     }
   }
 
+  static async deleteOne(id) {
+    try {
+      return await userDataModel.deleteOne({ _id: id });
+    } catch (err) {
+      throw err;
+    }
+  }
+
   static async update(user) {
     try {
       console.log(user);

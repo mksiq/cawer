@@ -56,6 +56,15 @@ class UserService {
       throw error;
     }
   }
+
+  static async delete(id) {
+    try {
+      return await UserRepository.deleteOne(id);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 
 function validateFields(user) {
