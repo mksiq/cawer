@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const mongoose = require("mongoose");
+const ApplicationError = require("../errors/ApplicationError");
 const Schema = mongoose.Schema;
 const UserError = require("../errors/UserError");
 
@@ -21,10 +22,9 @@ class UserRepository {
 
   static async login(user) {
     let foundUser;
-    console.log(user)
     try {
       foundUser = await userDataModel.findOne({ username: user.username });
-      if(!foundUser) {
+      if (!foundUser) {
         throw new UserError("User not found");
       }
     } catch (err) {
@@ -35,6 +35,42 @@ class UserRepository {
       return foundUser;
     } else {
       throw new UserError("Password does not match");
+    }
+  }
+
+  static async findOne(id) {
+    let foundUser;
+    try {
+      foundUser = await userDataModel.findOne({ _id: id });
+      if (!foundUser) {
+        throw new UserError("User not found");
+      }
+      return foundUser;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  static async update(user) {
+    try {
+      console.log(user);
+      const salt = await bcrypt.genSalt(10);
+      user.password  = await bcrypt.hash(user.password, salt);
+      await userDataModel.updateOne(
+        { _id: user._id },
+        {
+          $set: {
+            email: user.email,
+            password: user.password,
+            username: user.username,
+            alias: user.alias,
+          },
+        }
+      );
+      return await userDataModel.findOne({ _id: user._id });
+    } catch (err) {
+      console.log(err)
+      throw new UserError("User already exists");
     }
   }
 }
@@ -72,20 +108,14 @@ const userSchema = new Schema({
 // Before saving an user hashes the password with bcrypt
 userSchema.pre("save", function (next) {
   let user = this;
-  bcrypt
-    .genSalt(10)
-    .then((salt) => {
-      bcrypt
-        .hash(user.password, salt)
-        .then((encryptedPwd) => {
-          user.password = encryptedPwd;
-          next();
-        });
+  bcrypt.genSalt(10).then((salt) => {
+    bcrypt.hash(user.password, salt).then((encryptedPwd) => {
+      user.password = encryptedPwd;
+      next();
     });
+  });
 });
 
 const userDataModel = mongoose.model("Users", userSchema);
-
-
 
 module.exports = UserRepository;

@@ -28,8 +28,29 @@ class UserService {
         return { auth: true, token: token, user: loggedUser};
       } else {
         throw new ApplicationError();
-      }
-      
+      }      
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  static async findOne(id) {
+    try {
+      const loggedUser = await UserRepository.findOne(id);
+      if(loggedUser) {
+        return loggedUser;
+      }      
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  static async update(user) {
+    try {
+      validateFields(user);
+      return await UserRepository.update(user);
     } catch (error) {
       console.log(error);
       throw error;
