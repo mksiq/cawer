@@ -1,5 +1,7 @@
 const UserError = require("../errors/UserError");
 const UserRepository = require("../repository/userRepository");
+const jwt = require("jsonwebtoken");
+const ApplicationError = require("../errors/ApplicationError");
 
 class UserService {
   constructor() {
@@ -18,7 +20,16 @@ class UserService {
 
   static async login(user) {
     try {
-      return await UserRepository.login(user);
+      const loggedUser = await UserRepository.login(user);
+      if(loggedUser) {
+        const token = jwt.sign({ id: loggedUser._id }, process.env.TOKEN_SECRET, {
+          expiresIn: 86400 // expires in 24 hours
+        });
+        return { auth: true, token: token, user: loggedUser};
+      } else {
+        throw new ApplicationError();
+      }
+      
     } catch (error) {
       console.log(error);
       throw error;

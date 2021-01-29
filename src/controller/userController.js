@@ -3,7 +3,9 @@ const User = require("../model/user");
 const UserService = require("../service/userService");
 const router = new express.Router();
 
-// Sign up
+/**
+ * Signup end-point
+ */
 router.post("/register-user", (req, res) => {
     const { username, alias, email, password } = req.body;
     const user = new User(username, alias, password, email);
@@ -18,9 +20,12 @@ router.post("/register-user", (req, res) => {
     })()
 });
 
+/**
+ * Login end-point
+ */
 router.post("/login", (req, res) => {
-    const { email, password } = req.body;
-    const user = new User(null, null, password, email);
+    const { username, password } = req.body;
+    const user = new User(username, null, password, null);
     (async () => {
         try {
             const loggedUser = await UserService.login(user);
