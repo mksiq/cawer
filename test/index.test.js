@@ -164,6 +164,45 @@ test("Get User: passing token must return user data", () => {
     });
 });
 
+test("Get another user while logged: no errors thrown", () => {
+  const loggingUser = `password=testertester&username=tester`;
+  return fetch("http://localhost:8080/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    },
+    body: loggingUser,
+  })
+    .then((res) => {
+      return res
+        .json()
+        .then((x) => {
+          const { token } = x;
+          return fetch("http://localhost:8080/user/6014347978cb1716ccfaa9bc", {
+            method: "GET",
+            headers: {
+              "x-access-token": token,
+            },
+          })
+            .then((response) => {
+              return response
+                .json()
+                .then((user) => expect(user.username).toEqual("aaa"));
+            })
+            .catch((error) => {
+              fail(error);
+            });
+        })
+        .catch((error) => {
+          fail(error);
+        });
+    })
+    .catch((err) => {
+      expect(err).toEqual("aaa")
+      fail("Something else went wrong");
+    });
+});
+
 test("Delete User: no errors thrown", () => {
   const loggingUser = `username=new&password=newnewnew`;
   return fetch("http://localhost:8080/login", {

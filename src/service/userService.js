@@ -41,9 +41,9 @@ class UserService {
 
   static async findOne(id) {
     try {
-      const loggedUser = await UserRepository.findOne(id);
-      if (loggedUser) {
-        return loggedUser;
+      const user = await UserRepository.findOne(id);
+      if (user) {
+        return user;
       }
     } catch (error) {
       console.log(error);
