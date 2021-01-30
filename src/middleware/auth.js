@@ -1,5 +1,9 @@
 const jwt = require("jsonwebtoken");
 
+/**
+ * Authentication middleware for
+ * @param request, response, next 
+ */
 function authenticateToken(req, res, next) {
   var token = req.headers["x-access-token"]; //tempToken;// ;
   if (!token)
@@ -13,7 +17,6 @@ function authenticateToken(req, res, next) {
 
     req.user = decoded;
     next();
-    //res.status(200).send(decoded);
   });
 }
 

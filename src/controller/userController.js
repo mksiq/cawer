@@ -6,6 +6,8 @@ const authMiddleware = require("../middleware/auth");
 
 /**
  * Signup end-point
+ * @param request : user data
+ * @return json : user data with token
  */
 router.post("/register-user", (req, res) => {
   const { username, alias, email, password } = req.body;
@@ -23,8 +25,8 @@ router.post("/register-user", (req, res) => {
 
 /**
  * Login end-point
- *
- * return id and auth token
+ * @param request : username and password
+ * @return json : token
  */
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
@@ -41,6 +43,8 @@ router.post("/login", (req, res) => {
 
 /**
  * Get  logged own user information
+ * @param request : user data to update
+ * @return json : user data after update
  */
 router.get("/self", authMiddleware, function (req, res) {
   (async () => {
@@ -53,6 +57,11 @@ router.get("/self", authMiddleware, function (req, res) {
   })();
 });
 
+/**
+ * Update logged user information
+ * @param request : token
+ * @return json : user data 
+ */
 router.post("/update-user", authMiddleware, function (req, res) {
   const { username, alias, email, password } = req.body;
 
@@ -69,6 +78,11 @@ router.post("/update-user", authMiddleware, function (req, res) {
   })();
 });
 
+/**
+ * Delete logged user
+ * @param request : token
+ * @return json : message
+ */
 router.delete("/delete-user", authMiddleware, function (req, res) {
   const id = req.user.id;
   (async () => {

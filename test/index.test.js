@@ -1,7 +1,7 @@
 const { json } = require("body-parser");
 const fetch = require("node-fetch");
 
-test("Api is running: must return welcome message", () => {
+test("Api is running: must return a welcome message", () => {
 //  fail("API not running")
   return fetch("http://localhost:8080", { method: "GET" }).then((res) => {
     res.json().then((x) => {
@@ -132,7 +132,7 @@ test("Get User: passing token must return user data", () => {
   })
 });
 
-test("Delete User: passing token must return user data", () => {
+test("Delete User: no errors thrown", () => {
   const loggingUser = `username=new&password=newnewnew`;
   return fetch("http://localhost:8080/login", {
     method: "POST",

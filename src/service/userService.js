@@ -67,6 +67,11 @@ class UserService {
   }
 }
 
+/**
+ * Validate user email
+ * @param usar : user data
+ * @return validation : objection with validation result
+ */
 function validateFields(user) {
   const validation = {};
   validation.valid = true;
@@ -89,7 +94,11 @@ function validateFields(user) {
   return validation;
 }
 
-// Validations functions
+/**
+ * Validate user email
+ * @param email : user email
+ * @param validation : objection with validation data
+ */
 function validateEmail(email, validation) {
   if (!email) {
     validation.email = "You must specify your e-mail.";

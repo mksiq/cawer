@@ -1,5 +1,6 @@
-const bcrypt = require('bcryptjs');
-
+/**
+ * Base class for User
+ */
 class User {
     constructor(username, alias, password, email) {
         this._id = "";
