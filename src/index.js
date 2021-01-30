@@ -9,7 +9,8 @@ const Configuration = require("../config/config");
 
 dotenv.config({ path: "./config/keys.env" });
 
-const HTTP_PORT = process.env.HTTP_PORT;
+const HTTP_PORT = process.env.PORT;
+console.log(HTTP_PORT);
 
 const app = express();
 

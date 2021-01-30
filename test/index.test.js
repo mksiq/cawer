@@ -4,21 +4,17 @@ const fetch = require("node-fetch");
 
 /**
  * These test are only integration
- * I did not have time to create mock
+ * I did not have time to create mocks
  */
-
-
-test("Api is running: must return a welcome message", () => {
-  //  fail("API not running")
-  return fetch("http://localhost:8080", { method: "GET" })
-    .then((res) => {
-      res.json().then((x) => {
-        expect(x.message).toBe("Welcome to CAW CAWER API!");
-      });
-    })
-    .catch((e) => {
-      fail("API not running");
-    });
+test("Api is running: must return a welcome message", async () => {
+  try {
+    const response = await fetch("http://localhost:8080", { method: "GET" });
+    const json = await response.json();
+    expect(json.message).toBe("Welcome to CAW CAWER API!");
+  }
+  catch ( error) {
+    fail("API not running");
+  }
 });
 
 

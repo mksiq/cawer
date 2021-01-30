@@ -27,7 +27,7 @@ router.get("/chats", authMiddleware, async function (req, res) {
  * @param {int} id : another user
  * @return {object} chat : chats that a user pertains
  */
-router.get("/chats/:id", authMiddleware, function (req, res) {
+router.get("/chats/:id", authMiddleware, async function (req, res) {
     try {
       const users = [req.user.id, req.params.id];
       const chat = await ChatService.findByUsers(users);
