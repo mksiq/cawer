@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const userController = require("./controller/userController");
+const chatController = require("./controller/chatController");
+const messageController = require("./controller/messageController");
 const bodyParser = require("body-parser");
 const Configuration = require("../config/config");
 
@@ -23,6 +25,8 @@ app.listen(HTTP_PORT, () => {
 });
 
 app.use("/", userController);
+app.use("/", chatController);
+app.use("/", messageController);
 
 Configuration.start();
 
@@ -31,3 +35,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("*", cors());
+
+app.use("*", (req, res) => {
+  return res.status(404).json({
+    message: "API endpoint does not exist",
+  });
+});

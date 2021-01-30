@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 /**
- * Authentication middleware for
+ * Authentication middleware
  * @param request, response, next
  */
 function authenticateToken(req, res, next) {

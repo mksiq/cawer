@@ -1,6 +1,13 @@
 const { json } = require("body-parser");
 const fetch = require("node-fetch");
 
+
+/**
+ * These test are only integration
+ * I did not have time to create mock
+ */
+
+
 test("Api is running: must return a welcome message", () => {
   //  fail("API not running")
   return fetch("http://localhost:8080", { method: "GET" })
@@ -14,6 +21,7 @@ test("Api is running: must return a welcome message", () => {
     });
 });
 
+
 test("Insert user that exists: not allowed", () => {
   const data = `username=tester&password=testertester&email=tester@gmail.com&alias=tester`;
   return fetch("http://localhost:8080/register-user", {
@@ -23,11 +31,12 @@ test("Insert user that exists: not allowed", () => {
     },
     body: data,
   }).then((res) => {
-    res.json().then((x) => {
-      expect(x.message).toEqual("User already exists");
+    res.json().then((error) => {
+      expect(error.message).toEqual("User already exists");
     });
   });
 });
+
 
 test("Insert user that does not exists must throw no errors", () => {
   const data = `username=new&password=newnewnew&email=new@gmail.com&alias=new`;
