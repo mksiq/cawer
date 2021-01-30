@@ -1,6 +1,11 @@
+/**
+ * Base class for Chat
+ */
 class Chat {
-  constructor (){
+  constructor() {
     this._id = "";
     this.users = [];
   }
 }
+
+module.exports = Chat;
