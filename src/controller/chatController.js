@@ -8,8 +8,7 @@ const ChatService = require("../service/chatService");
  * @param {int} req.user.id : user id in decoded token
  * @return {array} chats : chats that a user pertains
  */
-router.get("/chats", authMiddleware, function (req, res) {
-  (async () => {
+router.get("/chats", authMiddleware, async function (req, res) {
     try {
       const chats = await ChatService.findByUser(req.user.id);
       res.status(200).send(chats);
@@ -20,7 +19,6 @@ router.get("/chats", authMiddleware, function (req, res) {
         res.status(500).send(error);
       }
     }
-  })();
 });
 
 /**
@@ -30,7 +28,6 @@ router.get("/chats", authMiddleware, function (req, res) {
  * @return {object} chat : chats that a user pertains
  */
 router.get("/chats/:id", authMiddleware, function (req, res) {
-  (async () => {
     try {
       const users = [req.user.id, req.params.id];
       const chat = await ChatService.findByUsers(users);
@@ -42,7 +39,6 @@ router.get("/chats/:id", authMiddleware, function (req, res) {
         res.status(500).send(error);
       }
     }
-  })();
 });
 
 module.exports = router;

@@ -5,7 +5,8 @@
   "main": "./src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node ./src/index.js"
+    "start": "node ./src/index.js", 
+    "doc": "jsdoc -c jsdoc.json"
   },
   "author": "Maickel Siqueira",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jest": "^26.6.3",
+    "jsdoc": "^3.6.6",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.14",
     "node-fetch": "^2.6.1"
