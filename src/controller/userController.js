@@ -6,8 +6,8 @@ const authMiddleware = require("../middleware/auth");
 
 /**
  * Signup end-point
- * @param request : user data
- * @return json : user data with token
+ * @param {json} request : user data
+ * @return {json} user data with token
  */
 router.post("/register-user", (req, res) => {
   const { username, alias, email, password } = req.body;
@@ -25,8 +25,8 @@ router.post("/register-user", (req, res) => {
 
 /**
  * Login end-point
- * @param request : username and password
- * @return json : token
+ * @param {json} req.body : username and password
+ * @return {json}  : token
  */
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
@@ -43,8 +43,8 @@ router.post("/login", (req, res) => {
 
 /**
  * Get  logged own user information
- * @param request : user data to update
- * @return json : self user data 
+ * @param {int} req.user.id : user data to update
+ * @return {object} user : self user data 
  */
 router.get("/self", authMiddleware, function (req, res) {
   (async () => {
@@ -59,8 +59,8 @@ router.get("/self", authMiddleware, function (req, res) {
 
 /**
  * Get another user user information. Needs to have a valid token
- * @param request : user id
- * @return json : user data 
+ * @param {int} req.user.id : user id
+ * @return {json} user : user data 
  */
 router.get("/user/:id", authMiddleware, function (req, res) {
   (async () => {
@@ -76,8 +76,8 @@ router.get("/user/:id", authMiddleware, function (req, res) {
 
 /**
  * Update logged user information
- * @param request : token
- * @return json : user data
+ * @param {string} token : token
+ * @return {json} user : user data
  */
 router.post("/update-user", authMiddleware, function (req, res) {
   const { username, alias, email, password } = req.body;
@@ -97,8 +97,8 @@ router.post("/update-user", authMiddleware, function (req, res) {
 
 /**
  * Delete logged user
- * @param request : token
- * @return json : message
+ * @param {string} token : token
+ * @return {json} message : confirmation
  */
 router.delete("/delete-user", authMiddleware, function (req, res) {
   const id = req.user.id;

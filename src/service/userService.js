@@ -5,7 +5,7 @@ const ApplicationError = require("../errors/ApplicationError");
 
 class UserService {
   constructor() {
-    this.userRepository = userRepository;
+    this.userRepository = UserRepository;
   }
 
   static async signUp(user) {
