@@ -21,14 +21,18 @@ class UserService {
   static async login(user) {
     try {
       const loggedUser = await UserRepository.login(user);
-      if(loggedUser) {
-        const token = jwt.sign({ id: loggedUser._id }, process.env.TOKEN_SECRET, {
-          expiresIn: 86400 // expires in 24 hours
-        });
-        return { auth: true, token: token, user: loggedUser};
+      if (loggedUser) {
+        const token = jwt.sign(
+          { id: loggedUser._id },
+          process.env.TOKEN_SECRET,
+          {
+            expiresIn: 86400, // expires in 24 hours
+          }
+        );
+        return { auth: true, token: token, user: loggedUser };
       } else {
         throw new ApplicationError();
-      }      
+      }
     } catch (error) {
       console.log(error);
       throw error;
@@ -38,9 +42,9 @@ class UserService {
   static async findOne(id) {
     try {
       const loggedUser = await UserRepository.findOne(id);
-      if(loggedUser) {
+      if (loggedUser) {
         return loggedUser;
-      }      
+      }
     } catch (error) {
       console.log(error);
       throw error;

@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const userController = require("./controller/userController");
-const bodyParser = require('body-parser');
-const Configuration = require('../config/config')
+const bodyParser = require("body-parser");
+const Configuration = require("../config/config");
 
 dotenv.config({ path: "./config/keys.env" });
 

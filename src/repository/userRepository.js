@@ -63,7 +63,7 @@ class UserRepository {
     try {
       console.log(user);
       const salt = await bcrypt.genSalt(10);
-      user.password  = await bcrypt.hash(user.password, salt);
+      user.password = await bcrypt.hash(user.password, salt);
       await userDataModel.updateOne(
         { _id: user._id },
         {
@@ -77,7 +77,7 @@ class UserRepository {
       );
       return await userDataModel.findOne({ _id: user._id });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       throw new UserError("User already exists");
     }
   }

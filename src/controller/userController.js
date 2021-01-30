@@ -60,7 +60,7 @@ router.get("/self", authMiddleware, function (req, res) {
 /**
  * Update logged user information
  * @param request : token
- * @return json : user data 
+ * @return json : user data
  */
 router.post("/update-user", authMiddleware, function (req, res) {
   const { username, alias, email, password } = req.body;
@@ -88,7 +88,7 @@ router.delete("/delete-user", authMiddleware, function (req, res) {
   (async () => {
     try {
       await UserService.delete(id);
-      res.status(204).send({message: 'User deleted'});
+      res.status(204).send({ message: "User deleted" });
     } catch (error) {
       res.status(error.statusCode).send(error);
     }

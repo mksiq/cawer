@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 /**
  * Authentication middleware for
- * @param request, response, next 
+ * @param request, response, next
  */
 function authenticateToken(req, res, next) {
   var token = req.headers["x-access-token"]; //tempToken;// ;
@@ -20,4 +20,4 @@ function authenticateToken(req, res, next) {
   });
 }
 
-module.exports = authenticateToken
+module.exports = authenticateToken;
