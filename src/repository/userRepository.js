@@ -4,8 +4,15 @@ const ApplicationError = require("../errors/ApplicationError");
 const Schema = mongoose.Schema;
 const UserError = require("../errors/UserError");
 
-//Manage DataBase
+/**
+ * Manage database for users
+ */
 class UserRepository {
+  /**
+   * Inserts a user
+   * @param {object} user : user data
+   * @returns {object} user update with creation date and id
+   */
   static async insert(user) {
     try {
       const newUser = new userDataModel({
@@ -20,6 +27,11 @@ class UserRepository {
     }
   }
 
+  /**
+   * Login, finds  a user and compare hashed password with the one in DB
+   * @param {object} user : user data
+   * @returns {object} user found if passwords match
+   */
   static async login(user) {
     let foundUser;
     try {
@@ -38,6 +50,11 @@ class UserRepository {
     }
   }
 
+  /**
+   * Finds a user
+   * @param {integer} id : user id
+   * @returns {object} found user
+   */
   static async findOne(id) {
     let foundUser;
     try {
@@ -51,6 +68,28 @@ class UserRepository {
     }
   }
 
+  /**
+   * Finds a user by its username
+   * @param {string} username : user username
+   * @returns {object} found user
+   */
+  static async findOneByUsername(username) {
+    let foundUser;
+    try {
+      foundUser = await userDataModel.findOne({ username: username });
+      if (!foundUser) {
+        throw new UserError("User not found");
+      }
+      return foundUser;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  /**
+   * Deletes a user by id
+   * @param {integer} id : user id
+   */
   static async deleteOne(id) {
     try {
       return await userDataModel.deleteOne({ _id: id });
@@ -59,6 +98,11 @@ class UserRepository {
     }
   }
 
+  /**
+   * Updates a user
+   * @param {object} user : user data
+   * @returns {object} updated user
+   */
   static async update(user) {
     try {
       console.log(user);
@@ -106,6 +150,7 @@ const userSchema = new Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
   },
   createdAt: {
     type: Date,

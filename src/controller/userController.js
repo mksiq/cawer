@@ -43,8 +43,8 @@ router.post("/login", (req, res) => {
 
 /**
  * Get  logged own user information
- * @param {int} req.user.id : user data to update
- * @return {object} user : self user data 
+ * @param {int} req.user.id : user id 
+ * @return {object} user : user data
  */
 router.get("/self", authMiddleware, function (req, res) {
   (async () => {
@@ -58,14 +58,14 @@ router.get("/self", authMiddleware, function (req, res) {
 });
 
 /**
- * Get another user user information. Needs to have a valid token
+ * Get another user information. Needs to have a valid token
  * @param {int} req.user.id : user id
- * @return {json} user : user data 
+ * @return {json} user : user data
  */
 router.get("/user/:id", authMiddleware, function (req, res) {
   (async () => {
     try {
-      console.log(req.params.id)
+      console.log(req.params.id);
       const loggedUser = await UserService.findOne(req.params.id);
       res.status(200).send(loggedUser);
     } catch (error) {

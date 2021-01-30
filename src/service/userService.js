@@ -8,6 +8,11 @@ class UserService {
     this.userRepository = UserRepository;
   }
 
+  /**
+   * Inserts an user as long as the input data is valdi
+   * @param {object} user : user data
+   * @return {object} user : user data update with id and signup date
+   */
   static async signUp(user) {
     try {
       validateFields(user);
@@ -18,6 +23,11 @@ class UserService {
     }
   }
 
+  /**
+   * User login
+   * @param {object} user : user with username and password
+   * @return {object} token with user information
+   */
   static async login(user) {
     try {
       const loggedUser = await UserRepository.login(user);
@@ -39,18 +49,45 @@ class UserService {
     }
   }
 
+  /**
+   * Find user by id
+   * @param {int} id : user id to look for
+   * @return {object} user : found user
+   */
   static async findOne(id) {
     try {
       const user = await UserRepository.findOne(id);
       if (user) {
         return user;
       }
+      throw ApplicationError();
     } catch (error) {
       console.log(error);
       throw error;
     }
   }
 
+  /**
+   * Find user by username
+   * @param {string} username : username to look for
+   * @return {object} user : user data
+   */
+  static async findOneByUsername(username) {
+    try {
+      const user = await UserRepository.findOneByUsername(username);
+      if (user) {
+        return user;
+      }
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  /**
+   * Update user data if has valid information
+   * @param {user} user : user data
+   * @return {json} user : updated user data
+   */
   static async update(user) {
     try {
       validateFields(user);
@@ -61,6 +98,11 @@ class UserService {
     }
   }
 
+  /**
+   * Delete user by id
+   * @param {string} id : user id to delete
+   * @return {json} message : confirmation
+   */
   static async delete(id) {
     try {
       return await UserRepository.deleteOne(id);
@@ -73,7 +115,7 @@ class UserService {
 
 /**
  * Validate user email
- * @param usar : user data
+ * @param user : user data
  * @return validation : objection with validation result
  */
 function validateFields(user) {
